@@ -1,3 +1,29 @@
 from django.db import models
 
-# Create your models here.
+
+class Actor(models.Model):
+    first_name = models.CharField(max_length=120)
+    last_name = models.CharField(max_length=120)
+
+    def __str__(self) -> str:
+        return f"{self.first_name} {self.last_name}"
+
+
+class Director(models.Model):
+    first_name = models.CharField(max_length=120)
+    last_name = models.CharField(max_length=120)
+
+    def __str__(self) -> str:
+        return f"{self.first_name} {self.last_name}"
+
+
+class Movie(models.Model):
+    title = models.CharField(max_length=255)
+    release_date = models.DateField()
+    director = models.CharField(max_length=255)
+    actors = models.ManyToManyField(
+        Actor, related_name="movies", on_delete=models.SET_NULL
+    )
+
+    def __str__(self) -> str:
+        return self.title
