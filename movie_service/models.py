@@ -20,10 +20,8 @@ class Director(models.Model):
 class Movie(models.Model):
     title = models.CharField(max_length=255)
     release_date = models.DateField()
-    director = models.CharField(max_length=255)
-    actors = models.ManyToManyField(
-        Actor, related_name="movies", on_delete=models.SET_NULL
-    )
+    director = models.ManyToManyField(Director, related_name="movies")
+    actors = models.ManyToManyField(Actor, related_name="movies")
 
     def __str__(self) -> str:
         return self.title
