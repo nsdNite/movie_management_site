@@ -3,3 +3,4 @@
 __pycache__
 .idea
 pyproject.toml
+db.sqlite3
