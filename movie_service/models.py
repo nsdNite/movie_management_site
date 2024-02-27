@@ -58,7 +58,11 @@ class Movie(models.Model):
         director_objs = []
         for director_name in director_names:
             if director_name:
-                first_name, last_name = director_name.split(" ", 1)
+                if " " in director_names:
+                    first_name, last_name = director_name.split(" ", 1)
+                else:
+                    first_name = director_name
+                    last_name = ""
                 director, created = Director.objects.get_or_create(
                     first_name=first_name, last_name=last_name
                 )
@@ -66,8 +70,13 @@ class Movie(models.Model):
 
         actor_objs = []
         for actor_name in actor_names:
+            print(actor_name)
             if actor_name:
-                first_name, last_name = actor_name.split(" ", 1)
+                if " " in actor_name:
+                    first_name, last_name = actor_name.split(" ", 1)
+                else:
+                    first_name = actor_name
+                    last_name = ""
                 actor, created = Actor.objects.get_or_create(
                     first_name=first_name, last_name=last_name
                 )

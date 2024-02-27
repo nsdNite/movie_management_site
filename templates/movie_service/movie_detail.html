@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<body>
+    <h1>{{ movie.title }}</h1>
+    
+    <p><strong>Release Date:</strong> {{ movie.formatted_release_date }}</p>
+    
+    <p><strong>Director(s):</strong>
+        {% for director in movie.director.all %}
+            {{ director.first_name }} {{ director.last_name }}{% if not forloop.last %}, {% endif %}
+        {% endfor %}
+    </p>
+    
+    <p><strong>Actors:</strong>
+        {% for actor in movie.actors.all %}
+            {{ actor.first_name }} {{ actor.last_name }}{% if not forloop.last %}, {% endif %}
+        {% endfor %}
+    </p>
+
+</body>
+{% endblock %}
