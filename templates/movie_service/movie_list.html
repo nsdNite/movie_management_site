@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
 	<h1>Movie List</h1>
-	<ul>
-		{% for movie in movies %}
-			<li><a href="{% url 'movie_service:movie-detail' pk=movie.pk %}">{{ movie.title }}</a></li>
-		{% endfor %}
-	</ul>
+    <ul>
+        {% for movie in movies %}
+            <li><a href="/movies/{{ movie.id }}/">{{ movie.title }}</a></li>
+        {% endfor %}
+    </ul>
 	{% if movies.has_previous %}
 		<a href="?page=1">First</a>
 		<a href="?page={{ movies.previous_page_number }}">Previous</a>

@@ -16,8 +16,8 @@
 			{{ actor.first_name }} {{ actor.last_name }}{% if not forloop.last %}, {% endif %}
 		{% endfor %}
 	</p>
-	<a href="{% url 'movie_service:movie_update' pk=movie.pk %}">Update</a>
-	<a href="{% url 'movie_service:movie_delete' pk=movie.pk %}">Delete</a>
+	<a href="{% url 'movie_service:movie-update' pk=movie.id %}" class="btn btn-warning">Update </a>
+	<a href="{% url 'movie_service:movie-delete' pk=movie.id %}" class="btn btn-danger">Delete </a>
 	</body>
 {% endblock %}
 	

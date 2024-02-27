@@ -1,12 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
-	<body>
 	<h1>Confirm Delete</h1>
 	<p>Are you sure you want to delete "{{ movie.title }}"?</p>
-	<form method="post">
-		{% csrf_token %}
-		<button type="submit">Confirm Delete</button>
-	</form>
-	<a href="{% url 'movie_detail' pk=movie.pk %}">Cancel</a>
-	</body>
+	<div style="display: inline-block;">
+		<form action="" method="post">
+			{% csrf_token %}
+			<input type="submit" value="Yes" class="btn btn-danger">
+		</form>
+	</div>
+	<div style="display: inline-block;">
+		<a href="{% url 'movie_service:movie-detail' pk=movie.id %}"
+		   class="btn btn-primary">Cancel</a>
+	</div>
 {% endblock %}
