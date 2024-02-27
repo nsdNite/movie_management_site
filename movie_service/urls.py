@@ -1,12 +1,27 @@
-from django.conf import settings
-from django.conf.urls.static import static
-from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
 
-from movie_service.views import IndexView, MovieDetailView, MovieListView
+from movie_service.views import (
+    IndexView,
+    MovieDetailViewFront,
+    MovieListViewFront,
+)
 
 urlpatterns = [
     path("", IndexView.as_view(), name="index"),
-    path("movies/", MovieListView.as_view(), name="movie-list"),
-    path("movies/<int:pk>/", MovieDetailView.as_view(), name="movie-detail"),
+    path("movies/", MovieListViewFront.as_view(), name="movie-list"),
+    path(
+        "movies/<int:pk>/", MovieDetailViewFront.as_view(), name="movie-detail"
+    ),
+    path(
+        "movies/<int:pk>/update/",
+        MovieDetailViewFront.as_view(),
+        name="movie_update",
+    ),
+    path(
+        "movies/<int:pk>/delete/",
+        MovieDetailViewFront.as_view(),
+        name="movie_delete",
+    ),
 ]
+
+app_name = "movie_service"

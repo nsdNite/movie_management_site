@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     "django_bootstrap5",
     "crispy_forms",
     "crispy_bootstrap5",
-    "django_filters" "movie_service",
+    "django_filters",
+    "movie_service",
 ]
 
 MIDDLEWARE = [
@@ -112,7 +113,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "Kiev/Europe"
+TIME_ZONE = "Europe/Kiev"
 
 USE_I18N = True
 
