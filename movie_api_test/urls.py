@@ -1,11 +1,11 @@
+from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
+from movie_api_test import settings
 from movie_service.views import IndexView, MovieListView, MovieDetailView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", IndexView.as_view(), name="index"),
-    path("movies/", MovieListView.as_view(), name="movie-list"),
-    path("movies/<int:pk>/", MovieDetailView.as_view(), name="movie-detail"),
-]
+    path("api/", include("movie_service.urls", namespace="api")),
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
