@@ -38,7 +38,6 @@ class Movie(models.Model):
         title = api_data.get("Title", "")
         raw_release_date = api_data.get("Released", "")
 
-        # Skip if release date is "N/A"
         if raw_release_date == "N/A":
             return None
 
@@ -47,7 +46,6 @@ class Movie(models.Model):
                 raw_release_date, "%d %b %Y"
             ).date()
         except ValueError:
-            # Handle invalid date format
             return None
 
         director_names = [
