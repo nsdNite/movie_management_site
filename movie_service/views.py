@@ -1,14 +1,12 @@
 from django.shortcuts import render
+from django.views import generic
 from django.views.generic import View
 
 from movie_service.models import Movie, Actor, Director
 
 
-# Create your views here.
-
-
 class IndexView(View):
-    template_name = "movie_api_test/index.html"
+    template_name = "movie_service/index.html"
 
     def get(self, request, *args, **kwargs):
         num_movie = Movie.objects.count()
@@ -26,3 +24,15 @@ class IndexView(View):
         }
 
         return render(request, self.template_name, context=context)
+
+
+class MovieListView(generic.ListView):
+    model = Movie
+    paginate_by = 25
+
+    def get_queryset(self):
+        return Movie.objects.all()
+
+
+class MovieDetailView(generic.DetailView):
+    model = Movie
