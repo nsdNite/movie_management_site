@@ -30,9 +30,6 @@ class MovieListView(generic.ListView):
     model = Movie
     paginate_by = 25
 
-    def get_queryset(self):
-        return Movie.objects.all()
-
 
 class MovieDetailView(generic.DetailView):
     model = Movie

@@ -1,6 +1,6 @@
 .venv
 *.pyc
-__pycache__
+/__pycache__/
 .idea
 pyproject.toml
 db.sqlite3

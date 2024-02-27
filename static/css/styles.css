@@ -1,0 +1,12 @@
+
+.link-to-page {
+    float: right;
+    margin: 0 2px 0 2px;
+}
+
+body {
+    margin-top: 20px;
+    color: cyan;
+    background: #222831;
+}
+

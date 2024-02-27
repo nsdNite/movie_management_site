@@ -1,9 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Movie Database</title>
-</head>
+{% extends "base.html" %}
+{% block content %}
 <body>
     <h1>Welcome to the Movie Database</h1>
 
@@ -14,4 +10,5 @@
         <p>Number of Visits: {{ num_visits }}</p>
     </div>
 </body>
-</html>
+
+{% endblock %}

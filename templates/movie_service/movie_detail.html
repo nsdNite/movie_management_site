@@ -1,9 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ movie.title }} - Movie Detail</title>
-</head>
+{% extends "base.html" %}
+{% block content %}
 <body>
     <h1>{{ movie.title }}</h1>
     
@@ -22,4 +18,4 @@
     </p>
 
 </body>
-</html>
+{% endblock %}
