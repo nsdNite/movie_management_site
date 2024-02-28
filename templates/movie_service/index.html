@@ -1,14 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
-<body>
-    <h1>Welcome to the Movie Database</h1>
+	<body>
+	<div class="content mt-5">
 
-    <div>
-        <p>Number of Movies: {{ num_movie }}</p>
-        <p>Number of Actors: {{ num_actors }}</p>
-        <p>Number of Directors: {{ num_directors }}</p>
-        <p>Number of Visits: {{ num_visits }}</p>
-    </div>
-</body>
+		<h1>Welcome to the Movie Database</h1>
+
+		<p>Number of Movies: {{ num_movie }}</p>
+		<p>Number of Actors: {{ num_actors }}</p>
+		<p>Number of Directors: {{ num_directors }}</p>
+		<p>Number of Visits: {{ num_visits }}</p>
+	</div>
+	</body>
 
 {% endblock %}

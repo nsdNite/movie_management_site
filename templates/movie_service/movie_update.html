@@ -1,20 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
-	<h1>Update Movie</h1>
-	<form method="post">
+	<h1>{{ object|yesno:"Update,Create" }} movie</h1>
+	<form action= "" method="post" novalidate>
 		{% csrf_token %}
-		<label for="title">Title:</label>
-		<input type="text" id="title" name="title" value="{{ movie.title }}"><br><br>
-
-		<label for="release_year">Release Year:</label>
-		<input type="text" id="release_year" name="release_year" value="{{ movie.release_year }}"><br><br>
-
-		<label for="director">Director:</label>
-		<input type="text" id="director" name="director" value="{{ movie.director }}"><br><br>
-
-		<label for="plot">Plot:</label><br>
-		<textarea id="plot" name="plot">{{ movie.plot }}</textarea><br><br>
-
-		<button type="submit">Update</button>
+		{{ form.as_p }}
+		<input type="submit" class="btn btn-warning" value="Submit">
 	</form>
 {% endblock %}
