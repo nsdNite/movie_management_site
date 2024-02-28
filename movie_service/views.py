@@ -71,42 +71,6 @@ class MovieCreateView(View):
         else:
             form = MovieForm()
         return render(request, "movie_service/movie_form.html", {"form": form})
-        # form = self.form_class(request.POST)
-        #
-        # if form.is_valid():
-        #     title = form.cleaned_data["title"]
-        #     release_date = form.cleaned_data["release_date"]
-        #     director_names = form.cleaned_data["directors"].split(",")
-        #     actors_names = form.cleaned_data["actors"].split(",")
-        #
-        #     directors = []
-        #     for director_name in director_names:
-        #         director, created = Director.objects.get_or_create(
-        #             name=director_name,
-        #         )
-        #         directors.append(director)
-        #
-        #     actors = []
-        #     for actor_name in actors_names:
-        #         actor, created = Actor.objects.get_or_create(
-        #             name=actor_name,
-        #         )
-        #         actors.append(actor)
-        #
-        #     movie = Movie.objects.create(
-        #         title=title,
-        #         release_date=release_date,
-        #     )
-        #
-        #     movie.directors.set(directors)
-        #     movie.actors.set(actors)
-        #
-        #     movie.save()
-        #
-        #     return redirect("movie_service:movie-list")
-        #
-        # context = {"form": form}
-        # return render(request, self.template_name, context)
 
 
 class MovieDeleteView(View):
@@ -168,38 +132,3 @@ class MovieUpdateView(View):
         else:
             form = MovieForm()
         return render(request, "movie_service/movie_form.html", {"form": form})
-
-        # movie = get_object_or_404(self.model, pk=pk)
-        # form = self.form_class(request.POST, instance=movie)
-        #
-        # if form.is_valid():
-        #     title = form.cleaned_data["title"]
-        #     release_date = form.cleaned_data["release_date"]
-        #     director_names = form.cleaned_data["directors"].split(",")
-        #     actors_names = form.cleaned_data["actors"].split(",")
-        #
-        #     directors = []
-        #     for director_name in director_names:
-        #         director, created = Director.objects.get_or_create(
-        #             name=director_name,
-        #         )
-        #         directors.append(director)
-        #
-        #     actors = []
-        #     for actor_name in actors_names:
-        #         actor, created = Actor.objects.get_or_create(
-        #             name=actor_name,
-        #         )
-        #         actors.append(actor)
-        #
-        #     movie.title = title
-        #     movie.release_date = release_date
-        #     movie.directors.set(directors)
-        #     movie.actors.set(actors)
-        #     movie.save()
-        #
-        #     return redirect("movie_service:movie-list")
-
-        # context = {"form": form, "movie": movie}
-        #
-        # return render(request, self.template_name, context)
