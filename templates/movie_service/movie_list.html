@@ -2,33 +2,52 @@
 {% load query_transform %}
 
 {% block content %}
-	<h1>Movie List</h1>
-	<form method="GET" action="{% url "movie_service:movie-list" %}">
-		{{ form.as_p }}
-		<input type="submit" value="Submit" class="btn btn-primary"/>
-	</form>
 
-	<ul>
-		{% for movie in movies %}
-			<li><a href="/movies/{{ movie.id }}/">{{ movie.title }}</a></li>
-		{% endfor %}
-	</ul>
+	<div class="container">
+		<h1>Movie List</h1>
 
-	<ul class="pagination">
-		{% if movies.has_previous %}
-			<li class="page-item">
-				<a href="?page= {{ movies.previous_page_number }}" class="page-link">prev</a>
-			</li>
-		{% endif %}
-		<li class="page-item active">
-			<span class="page-link">{{ movies.number }} of {{ movies.paginator.num_pages }}</span>
-		</li>
-		{% if movies.has_next %}
-			<li class="page-item">
-				<a href="?page= {{ movies.next_page_number }}" class="page-link">next</a>
-			</li>
-		{% endif %}
-	</ul>
+		<div class="row">
+			<div class="col-md-8">
+				<ul>
+					{% for movie in movies %}
+						<div>
+							<li><a href="/movies/{{ movie.id }}/">{{ movie.title }}</a></li>
+						</div>
+
+					{% empty %}
+						<p>No movies found.</p>
+					{% endfor %}
+				</ul>
+
+				<ul class="pagination">
+					{% if movies.has_previous %}
+						<li class="page-item">
+							<a href="?page= {{ movies.previous_page_number }}" class="page-link">prev</a>
+						</li>
+					{% endif %}
+					<li class="page-item active">
+						<span class="page-link">{{ movies.number }} of {{ movies.paginator.num_pages }}</span>
+					</li>
+					{% if movies.has_next %}
+						<li class="page-item">
+							<a href="?page= {{ movies.next_page_number }}" class="page-link">next</a>
+						</li>
+					{% endif %}
+				</ul>
+
+			</div>
+			<div class="col-md-2">
+				<form method="get">
+					{{ filter.form.as_p }}
+					<input type="submit" value="Filter" class="btn btn-primary"/>
+				</form>
+				{% for obj in filter.qs %}
+					{{ movie.title }}
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+
 
 
 {% endblock %}

@@ -5,32 +5,38 @@ from django.db import models
 
 
 class Actor(models.Model):
-    first_name = models.CharField(max_length=120)
-    last_name = models.CharField(max_length=120)
+    name = models.CharField(max_length=255)
 
     class Meta:
-        ordering = ("first_name",)
+        ordering = ("name",)
 
     def __str__(self) -> str:
-        return f"{self.first_name} {self.last_name}"
+        return self.name
+
+    def __repr__(self):
+        return self.name
 
 
 class Director(models.Model):
-    first_name = models.CharField(max_length=120)
-    last_name = models.CharField(max_length=120)
+    name = models.CharField(max_length=120)
 
     def __str__(self) -> str:
-        return f"{self.first_name} {self.last_name}"
+        return self.name
+
+    def __repr__(self):
+        return self.name
 
     class Meta:
-        ordering = ("first_name",)
+        ordering = ("name",)
 
 
 class Movie(models.Model):
     title = models.CharField(max_length=255)
     release_date = models.DateField(null=True, blank=True)
-    director = models.ManyToManyField(Director, related_name="movies")
-    actors = models.ManyToManyField(Actor, related_name="movies")
+    directors = models.ManyToManyField(
+        Director, related_name="movies", blank=True
+    )
+    actors = models.ManyToManyField(Actor, related_name="movies", blank=True)
 
     class Meta:
         ordering = ("title",)
@@ -67,31 +73,23 @@ class Movie(models.Model):
         director_objs = []
         for director_name in director_names:
             if director_name:
-                if " " in director_names:
-                    first_name, last_name = director_name.split(" ", 1)
-                else:
-                    first_name = director_name
-                    last_name = ""
+                name = director_name
                 director, created = Director.objects.get_or_create(
-                    first_name=first_name, last_name=last_name
+                    name=name,
                 )
                 director_objs.append(director)
 
         actor_objs = []
         for actor_name in actor_names:
-            print(actor_name)
             if actor_name:
-                if " " in actor_name:
-                    first_name, last_name = actor_name.split(" ", 1)
-                else:
-                    first_name = actor_name
-                    last_name = ""
+
+                name = actor_name
                 actor, created = Actor.objects.get_or_create(
-                    first_name=first_name, last_name=last_name
+                    name=name,
                 )
                 actor_objs.append(actor)
 
         movie = cls.objects.create(title=title, release_date=release_date)
-        movie.director.set(director_objs)
+        movie.directors.set(director_objs)
         movie.actors.set(actor_objs)
         return movie
