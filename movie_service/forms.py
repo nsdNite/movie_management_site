@@ -1,5 +1,5 @@
 from django import forms
-from .models import Movie
+from movie_service.models import Movie
 
 
 class MovieForm(forms.ModelForm):
@@ -12,3 +12,7 @@ class MovieForm(forms.ModelForm):
         release_date = forms.DateField(
             widget=forms.DateInput(attrs={"type": "date"})
         )
+
+
+class MovieSearchForm(forms.Form):
+    title = forms.CharField()

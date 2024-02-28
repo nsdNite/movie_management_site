@@ -2,7 +2,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
 
-from movie_service.forms import MovieForm
+from movie_service.forms import MovieForm, MovieSearchForm
 from movie_service.models import Movie, Actor, Director
 
 
@@ -41,18 +41,24 @@ class MovieBaseView(View):
             return render(request, "movie_service/movie_detail.html", context)
         else:
             movies = Movie.objects.all()
+            title = request.GET.get("title")
+
+            if title:
+                movies = movies.filter(title__icontains=title)
+                context = {"movies": movies, "form": MovieSearchForm()}
+                return render(
+                    request, "movie_service/movie_list.html", context
+                )
+
             paginator = Paginator(movies, self.items_per_page)
             page = request.GET.get("page")
-
             try:
                 movies_page = paginator.page(page)
             except PageNotAnInteger:
                 movies_page = paginator.page(1)
             except EmptyPage:
                 movies_page = paginator.page(paginator.num_pages)
-            context = {
-                "movies": movies_page,
-            }
+            context = {"movies": movies_page, "form": MovieSearchForm()}
             return render(request, "movie_service/movie_list.html", context)
 
 
