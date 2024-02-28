@@ -26,6 +26,9 @@ class Movie(models.Model):
     director = models.ManyToManyField(Director, related_name="movies")
     actors = models.ManyToManyField(Actor, related_name="movies")
 
+    class Meta:
+        ordering = ["title"]
+
     def __str__(self) -> str:
         return self.title
 
