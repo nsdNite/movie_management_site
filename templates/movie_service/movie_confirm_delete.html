@@ -3,13 +3,14 @@
 	<h1>Confirm Delete</h1>
 	<p>Are you sure you want to delete "{{ movie.title }}"?</p>
 	<div style="display: inline-block;">
-		<form action="" method="post">
+		<form action="{% url 'movie_service:movie-delete' object_id %}" method="post">
 			{% csrf_token %}
-			<input type="submit" value="Yes" class="btn btn-danger">
+			<input type="hidden" name="_method" value="delete">
+			<input type="submit" class="btn btn-danger" value="Confirm Delete">
 		</form>
 	</div>
 	<div style="display: inline-block;">
-		<a href="{% url 'movie_service:movie-detail' pk=movie.id %}"
+		<a href="{% url 'movie_service:cancel-delete' %}"
 		   class="btn btn-primary">Cancel</a>
 	</div>
 {% endblock %}

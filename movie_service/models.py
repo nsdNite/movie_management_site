@@ -8,6 +8,9 @@ class Actor(models.Model):
     first_name = models.CharField(max_length=120)
     last_name = models.CharField(max_length=120)
 
+    class Meta:
+        ordering = ("first_name",)
+
     def __str__(self) -> str:
         return f"{self.first_name} {self.last_name}"
 
@@ -19,6 +22,9 @@ class Director(models.Model):
     def __str__(self) -> str:
         return f"{self.first_name} {self.last_name}"
 
+    class Meta:
+        ordering = ("first_name",)
+
 
 class Movie(models.Model):
     title = models.CharField(max_length=255)
@@ -27,7 +33,7 @@ class Movie(models.Model):
     actors = models.ManyToManyField(Actor, related_name="movies")
 
     class Meta:
-        ordering = ["title"]
+        ordering = ("title",)
 
     def __str__(self) -> str:
         return self.title

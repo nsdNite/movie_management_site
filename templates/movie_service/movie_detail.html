@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% block content %}
-	<body>
 	<h1>{{ movie.title }}</h1>
 
 	<p><strong>Release Date:</strong> {{ movie.formatted_release_date }}</p>
@@ -16,8 +15,14 @@
 			{{ actor.first_name }} {{ actor.last_name }}{% if not forloop.last %}, {% endif %}
 		{% endfor %}
 	</p>
-	<a href="{% url 'movie_service:movie-update' pk=movie.id %}" class="btn btn-warning">Update </a>
-	<a href="{% url 'movie_service:movie-delete' pk=movie.id %}" class="btn btn-danger">Delete </a>
-	</body>
+	<div style="display: inline-block;">
+	<a href="{% url 'movie_service:movie-update' pk=movie.id %}"
+	   class="btn btn-warning">Update</a>
+	<div style="display: inline-block;">
+		<a href="{% url 'movie_service:delete-confirmation' pk=movie.id %}"
+		   class="btn btn-danger">Delete</a>
+	</div>
+
+
 {% endblock %}
 	
