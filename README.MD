@@ -1,4 +1,4 @@
-# Movie Database Website
+# Movie Database Website 🎥🎥🎥
 
 This project demonstrates the basic capabilities of Django framework and Django REST Framework for creating a movie database website.
 
@@ -20,7 +20,7 @@ Live-demo is available on Render:
 
 
 
-## API Endpoints
+## API Endpoints🪝 
 
 - `/api/movies/` (GET, POST)
 - `/api/movies/<id>/` (GET, PUT, DELETE)
@@ -29,16 +29,16 @@ Live-demo is available on Render:
 - `/api/actors/` (GET, POST)
 - `/api/actors/<id>/` (GET, PUT, DELETE)
 
-## Features
+## Features ⭐
 
 - CRUD operations for movies
 - CRUD operations for actors
 - CRUD operations for directors
 - Pagination for list views
-- Filters for movies, actors, directors (via django_filters)
+- Filters for movies, actors, directors (via django_filters) for both frontend and API
 - API endpoints for CRUD operations with movies, actors, directors
 
-## Technologies Used
+## Technologies Used 🧑‍💻
 
 - Django Framework
 - Django REST Framework

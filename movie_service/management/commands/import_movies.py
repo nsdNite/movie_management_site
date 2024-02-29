@@ -12,10 +12,15 @@ load_dotenv()
 
 class Command(BaseCommand):
 
+    def add_arguments(self, parser):
+        parser.add_argument("arg1", type=int, help="Start movie id")
+        parser.add_argument("arg2", type=int, help="End movie id")
+
     def handle(self, *args, **options):
         api_key = os.environ.get("OMDB_API_KEY")
         url_base = "https://www.omdbapi.com/?apikey=" + api_key
-        start_id, end_id = args
+        start_id = options["arg1"]
+        end_id = options["arg2"]
 
         movies_processed = 0
 
