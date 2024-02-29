@@ -85,13 +85,14 @@ class MovieDeleteView(View):
         return redirect("movie_service:movie-list")
 
 
-class DeleteConfirmationView(View):
-    """View to display delete confirmation page."""
+class MovieDeleteConfirmationView(View):
+    """View to display delete confirmation page for movie."""
 
+    model = Movie
     template_name = "movie_service/movie_confirm_delete.html"
 
     def get(self, request, pk):
-        movie = get_object_or_404(Movie, id=pk)
+        movie = get_object_or_404(self.model, id=pk)
         context = {
             "movie_id": pk,
             "movie": movie,
@@ -100,8 +101,8 @@ class DeleteConfirmationView(View):
         return render(request, self.template_name, context)
 
 
-class CancelDeleteView(View):
-    """View to handle cancellation of delete operation."""
+class MovieCancelDeleteView(View):
+    """View to handle cancellation of delete operation for movie."""
 
     def get(self, request):
         return redirect("movie_service:movie-list")
@@ -122,7 +123,7 @@ class MovieUpdateView(View):
         return render(request, self.template_name, context)
 
     def post(self, request, pk):
-        movie = get_object_or_404(Movie, pk=pk)
+        movie = get_object_or_404(self.model, pk=pk)
         form = self.form_class(request.POST, instance=movie)
         if form.is_valid():
             form.save()
@@ -174,5 +175,67 @@ class ActorCreateView(View):
             form.save()
             return redirect("movie_service:actor-list")
         else:
-            form = MovieForm()
+            form = ActorForm()
         return render(request, "movie_service/actor_form.html", {"form": form})
+
+
+class ActorUpdateView(View):
+    """View to update the actor name"""
+
+    model = Actor
+    form_class = ActorForm
+    template_name = "movie_service/actor_update.html"
+
+    def get(self, request, pk):
+        actor = get_object_or_404(self.model, pk=pk)
+        form = self.form_class(instance=actor)
+        context = {"form": form, "actor": actor}
+
+        return render(request, self.template_name, context)
+
+    def post(self, request, pk):
+        actor = get_object_or_404(self.model, pk=pk)
+        form = self.form_class(request.POST, instance=actor)
+        if form.is_valid():
+            form.save()
+            return redirect(
+                reverse("movie_service:actor-detail", kwargs={"pk": actor.pk})
+            )
+        else:
+            form = ActorForm()
+        return render(request, "movie_service/actor_form.html", {"form": form})
+
+
+class ActorDeleteView(View):
+    """View for deleting actor."""
+
+    model = Actor
+
+    def post(self, request, pk):
+        actor = get_object_or_404(self.model, pk=pk)
+        actor.delete()
+
+        return redirect("movie_service:actor-list")
+
+
+class ActorDeleteConfirmationView(View):
+    """View to display delete confirmation page for actor."""
+
+    model = Actor
+    template_name = "movie_service/actor_confirm_delete.html"
+
+    def get(self, request, pk):
+        actor = get_object_or_404(self.model, id=pk)
+        context = {
+            #          "actor_id": pk,
+            "actor": actor,
+        }
+
+        return render(request, self.template_name, context)
+
+
+class ActorCancelDeleteView(View):
+    """View to handle cancellation of delete operation for actor."""
+
+    def get(self, request):
+        return redirect("movie_service:actor-list")

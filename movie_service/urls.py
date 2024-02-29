@@ -4,12 +4,16 @@ from movie_service.views import (
     IndexView,
     MovieBaseView,
     MovieDeleteView,
-    DeleteConfirmationView,
-    CancelDeleteView,
+    MovieDeleteConfirmationView,
+    MovieCancelDeleteView,
     MovieUpdateView,
     MovieCreateView,
     ActorBaseView,
     ActorCreateView,
+    ActorUpdateView,
+    ActorDeleteView,
+    ActorDeleteConfirmationView,
+    ActorCancelDeleteView,
 )
 
 urlpatterns = [
@@ -18,28 +22,48 @@ urlpatterns = [
     path("movies/<int:pk>/", MovieBaseView.as_view(), name="movie-detail"),
     path("movies/create/", MovieCreateView.as_view(), name="movie-create"),
     path(
+        "movies/<int:pk>/update/",
+        MovieUpdateView.as_view(),
+        name="movie-update",
+    ),
+    path(
         "movies/<int:pk>/delete/",
         MovieDeleteView.as_view(),
         name="movie-delete",
     ),
     path(
         "movies/<int:pk>/delete/confirm/",
-        DeleteConfirmationView.as_view(),
+        MovieDeleteConfirmationView.as_view(),
         name="delete-confirmation",
     ),
     path(
         "movies/delete/cancel/",
-        CancelDeleteView.as_view(),
-        name="cancel-delete",
-    ),
-    path(
-        "movies/<int:pk>/update/",
-        MovieUpdateView.as_view(),
-        name="movie-update",
+        MovieCancelDeleteView.as_view(),
+        name="movie-cancel-delete",
     ),
     path("actors/", ActorBaseView.as_view(), name="actor-list"),
     path("actors/<int:pk>/", ActorBaseView.as_view(), name="actor-detail"),
     path("actors/create/", ActorCreateView.as_view(), name="actor-create"),
+    path(
+        "actors/<int:pk>/update/",
+        ActorUpdateView.as_view(),
+        name="actor-update",
+    ),
+    path(
+        "actors/<int:pk>/delete/",
+        ActorDeleteView.as_view(),
+        name="actor-delete",
+    ),
+    path(
+        "actors/<int:pk>/delete/confirm/",
+        ActorDeleteConfirmationView.as_view(),
+        name="actor-delete-confirmation",
+    ),
+    path(
+        "actors/delete/cancel/",
+        ActorCancelDeleteView.as_view(),
+        name="actor-cancel-delete",
+    ),
 ]
 
 

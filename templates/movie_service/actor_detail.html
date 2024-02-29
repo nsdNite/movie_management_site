@@ -11,10 +11,10 @@
 	</p>
 
 	<div style="display: inline-block;">
-	<a href=""
+	<a href="{% url 'movie_service:actor-update' pk=actor.id %}"
 	   class="btn btn-warning">Update</a>
 
-		<a href=""
+		<a href="{% url 'movie_service:actor-delete-confirmation' pk=actor.id %}"
 		   class="btn btn-danger">Delete</a>
 	</div>
 
