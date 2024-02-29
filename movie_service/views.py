@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.views import View
 
 from movie_service.filters import MovieFilter, ActorFilter
-from movie_service.forms import MovieForm
+from movie_service.forms import MovieForm, ActorForm
 from movie_service.models import Movie, Actor, Director
 
 
@@ -155,7 +155,8 @@ class ActorBaseView(View):
             context = {"actors": actors_paginated, "filter": f}
             return render(request, "movie_service/actor_list.html", context)
 
-class ActorreateView(View):
+
+class ActorCreateView(View):
     """View for creating new actor."""
 
     model = Actor
@@ -171,7 +172,7 @@ class ActorreateView(View):
         form = self.form_class(request.POST)
         if form.is_valid():
             form.save()
-            return redirect("movie_service:movie-list")
+            return redirect("movie_service:actor-list")
         else:
             form = MovieForm()
-        return render(request, "movie_service/movie_form.html", {"form": form})
+        return render(request, "movie_service/actor_form.html", {"form": form})

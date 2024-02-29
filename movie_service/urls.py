@@ -9,6 +9,7 @@ from movie_service.views import (
     MovieUpdateView,
     MovieCreateView,
     ActorBaseView,
+    ActorCreateView,
 )
 
 urlpatterns = [
@@ -38,6 +39,7 @@ urlpatterns = [
     ),
     path("actors/", ActorBaseView.as_view(), name="actor-list"),
     path("actors/<int:pk>/", ActorBaseView.as_view(), name="actor-detail"),
+    path("actors/create/", ActorCreateView.as_view(), name="actor-create"),
 ]
 
 
