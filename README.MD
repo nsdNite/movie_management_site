@@ -16,8 +16,8 @@ Database population is done through the API from https://www.omdbapi.com/
 
 CRUD operations for Movie, Actor, Director.
 
-Live-demo is available on Render:
-
+## Live-demo is available on Render:
+https://movie-database-y78h.onrender.com
 
 
 ## API Endpoints🪝 

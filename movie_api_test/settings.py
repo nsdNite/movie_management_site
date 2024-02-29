@@ -24,7 +24,7 @@ ALLOWED_HOSTS = [
     "127.0.0.1",
     "localhost",
     "0.0.0.0",
-    "https://movie-database-y78h.onrender.com",
+    "movie-database-y78h.onrender.com",
 ]
 
 # Application definition
