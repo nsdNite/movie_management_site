@@ -7,5 +7,5 @@ from movie_api_test import settings
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("movie_service.urls"), name="movie_service"),
-    path("select2/", include("django_select2.urls")),
+    path("api/", include("api_drf.urls"), name="api_drf"),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
