@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "crispy_bootstrap5",
     "django_filters",
     "movie_service",
+    "api_drf",
 ]
 
 MIDDLEWARE = [
