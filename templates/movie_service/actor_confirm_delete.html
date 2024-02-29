@@ -1,15 +1,17 @@
 {% extends "base.html" %}
 {% block content %}
-    <h1>Confirm Delete</h1>
-    <p>Are you sure you want to delete actor {{ actor.name }}?</p>
-    <form action="{% url 'movie_service:actor-delete' pk=actor.id %}" method="post" class="row">
-        {% csrf_token %}
-        <input type="hidden" name="_method" value="delete">
-        <div class="col-auto">
-            <input type="submit" class="btn btn-danger" value="Confirm Delete">
-        </div>
-        <div class="col-auto">
-            <a href="{% url 'movie_service:actor-cancel-delete' %}" class="btn btn-primary">Cancel</a>
-        </div>
-    </form>
+	
+	<h1>Confirm Delete</h1>
+	<p>Are you sure you want to delete actor {{ actor.name }}?</p>
+	<form action="{% url 'movie_service:actor-delete' pk=actor.id %}" method="post" class="row">
+		{% csrf_token %}
+		<input type="hidden" name="_method" value="delete">
+		<div class="col-auto">
+			<input type="submit" class="btn btn-danger" value="Confirm Delete">
+		</div>
+		<div class="col-auto">
+			<a href="{% url 'movie_service:actor-cancel-delete' %}" class="btn btn-primary">Cancel</a>
+		</div>
+	</form>
+	
 {% endblock %}

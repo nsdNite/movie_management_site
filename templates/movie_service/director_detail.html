@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+	
 	<h1>{{ director.name }}, director</h1>
 
 	<p><strong>Movies:</strong>
@@ -15,6 +16,5 @@
 		<a href="{% url 'movie_service:director-delete-confirmation' pk=director.id %}"
 		   class="btn btn-danger">Delete</a>
 	</div>
-
 
 {% endblock %}

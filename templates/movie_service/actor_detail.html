@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
+	
 	<h1>{{ actor.name }}, actor</h1>
-
 	<p><strong>Movies:</strong>
 		{% for movie in actor.movies.all %}
 			<a href="/movies/{{ movie.id }}/">{{ movie.title }}</a> {% if not forloop.last %}, {% endif %}
@@ -14,6 +14,5 @@
 		<a href="{% url 'movie_service:actor-delete-confirmation' pk=actor.id %}"
 		   class="btn btn-danger">Delete</a>
 	</div>
-
-
+	
 {% endblock %}
