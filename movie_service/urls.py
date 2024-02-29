@@ -14,6 +14,7 @@ from movie_service.views import (
     ActorDeleteView,
     ActorDeleteConfirmationView,
     ActorCancelDeleteView,
+    DirectorBaseView,
 )
 
 urlpatterns = [
@@ -63,6 +64,12 @@ urlpatterns = [
         "actors/delete/cancel/",
         ActorCancelDeleteView.as_view(),
         name="actor-cancel-delete",
+    ),
+    path("directors/", DirectorBaseView.as_view(), name="director-list"),
+    path(
+        "directors/<int:pk>/",
+        DirectorBaseView.as_view(),
+        name="director-detail",
     ),
 ]
 

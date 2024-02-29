@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.views import View
 
-from movie_service.filters import MovieFilter, ActorFilter
+from movie_service.filters import MovieFilter, ActorFilter, DirectorFilter
 from movie_service.forms import MovieForm, ActorForm
 from movie_service.models import Movie, Actor, Director
 
@@ -32,15 +32,20 @@ class IndexView(View):
 class MovieBaseView(View):
     """View for handling GET requests for Movie."""
 
+    model = Movie
+    filter_class = MovieFilter
+
     def get(self, request, pk=None):
         if pk:
-            movie = get_object_or_404(Movie, id=pk)
+            movie = get_object_or_404(self.model, id=pk)
             context = {
                 "movie": movie,
             }
             return render(request, "movie_service/movie_detail.html", context)
         else:
-            f = MovieFilter(request.GET, queryset=Movie.objects.all())
+            f = self.filter_class(
+                request.GET, queryset=self.model.objects.all()
+            )
             filtered_movies = f.qs
 
             page_number = request.GET.get("page")
@@ -138,15 +143,20 @@ class MovieUpdateView(View):
 class ActorBaseView(View):
     """View for handling GET requests for Actor."""
 
+    model = Actor
+    filter_class = ActorFilter
+
     def get(self, request, pk=None):
         if pk:
-            actor = get_object_or_404(Actor, id=pk)
+            actor = get_object_or_404(self.model, id=pk)
             context = {
                 "actor": actor,
             }
             return render(request, "movie_service/actor_detail.html", context)
         else:
-            f = ActorFilter(request.GET, queryset=Actor.objects.all())
+            f = self.filter_class(
+                request.GET, queryset=self.model.objects.all()
+            )
             filtered_actors = f.qs
 
             page_number = request.GET.get("page")
@@ -239,3 +249,32 @@ class ActorCancelDeleteView(View):
 
     def get(self, request):
         return redirect("movie_service:actor-list")
+
+
+class DirectorBaseView(View):
+    """View for handling GET requests for Director."""
+
+    model = Director
+    filter_class = DirectorFilter
+
+    def get(self, request, pk=None):
+        if pk:
+            director = get_object_or_404(self.model, id=pk)
+            context = {
+                "director": director,
+            }
+            return render(
+                request, "movie_service/director_detail.html", context
+            )
+        else:
+            f = self.filter_class(
+                request.GET, queryset=self.model.objects.all()
+            )
+            filtered_directors = f.qs
+
+            page_number = request.GET.get("page")
+            paginator = Paginator(filtered_directors, 25)
+            directors_paginated = paginator.get_page(page_number)
+
+            context = {"directors": directors_paginated, "filter": f}
+            return render(request, "movie_service/director_list.html", context)

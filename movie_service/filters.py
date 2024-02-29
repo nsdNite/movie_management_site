@@ -2,7 +2,7 @@ import django_filters
 from django.db.models.functions import ExtractYear
 
 
-from movie_service.models import Movie, Actor
+from movie_service.models import Movie, Actor, Director
 
 
 class ActorFilter(django_filters.FilterSet):
@@ -12,6 +12,16 @@ class ActorFilter(django_filters.FilterSet):
 
     class Meta:
         model = Actor
+        fields = ["name"]
+
+
+class DirectorFilter(django_filters.FilterSet):
+    name = django_filters.CharFilter(
+        field_name="name", lookup_expr="icontains"
+    )
+
+    class Meta:
+        model = Director
         fields = ["name"]
 
 
