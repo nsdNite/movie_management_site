@@ -61,9 +61,11 @@ Live-demo is available on Render:
    ```bash
    python manage.py migrate
    ```
-4. Acquire API key for OMBD API: 
+4. Acquire API key for OMBD API:   
 https://www.omdbapi.com/apikey.aspx  
-  
+And then put it into .env file (see .env-sample for reference)    
+    
+
 5. Load data form OMDB API using management command:  
    ```bash
    python manage.py migrate import_movies 80000 81000
