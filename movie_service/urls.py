@@ -8,6 +8,7 @@ from movie_service.views import (
     CancelDeleteView,
     MovieUpdateView,
     MovieCreateView,
+    ActorBaseView,
 )
 
 urlpatterns = [
@@ -35,6 +36,9 @@ urlpatterns = [
         MovieUpdateView.as_view(),
         name="movie-update",
     ),
+    path("actors/", ActorBaseView.as_view(), name="actor-list"),
+    path("actors/<int:pk>/", ActorBaseView.as_view(), name="actor-detail"),
 ]
+
 
 app_name = "movie_service"

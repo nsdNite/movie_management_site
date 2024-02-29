@@ -1,9 +1,9 @@
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.views import View
 
-from movie_service.filters import MovieFilter
+from movie_service.filters import MovieFilter, ActorFilter
 from movie_service.forms import MovieForm
 from movie_service.models import Movie, Actor, Director
 
@@ -30,7 +30,7 @@ class IndexView(View):
 
 
 class MovieBaseView(View):
-    """A base view for handling GET requests."""
+    """View for handling GET requests for Movie."""
 
     def get(self, request, pk=None):
         if pk:
@@ -129,6 +129,49 @@ class MovieUpdateView(View):
             return redirect(
                 reverse("movie_service:movie-detail", kwargs={"pk": movie.pk})
             )
+        else:
+            form = MovieForm()
+        return render(request, "movie_service/movie_form.html", {"form": form})
+
+
+class ActorBaseView(View):
+    """View for handling GET requests for Actor."""
+
+    def get(self, request, pk=None):
+        if pk:
+            actor = get_object_or_404(Actor, id=pk)
+            context = {
+                "actor": actor,
+            }
+            return render(request, "movie_service/actor_detail.html", context)
+        else:
+            f = ActorFilter(request.GET, queryset=Actor.objects.all())
+            filtered_actors = f.qs
+
+            page_number = request.GET.get("page")
+            paginator = Paginator(filtered_actors, 25)
+            actors_paginated = paginator.get_page(page_number)
+
+            context = {"actors": actors_paginated, "filter": f}
+            return render(request, "movie_service/actor_list.html", context)
+
+class ActorreateView(View):
+    """View for creating new actor."""
+
+    model = Actor
+    form_class = ActorForm
+    template_name = "movie_service/actor_update.html"
+
+    def get(self, request):
+        form = self.form_class()
+        context = {"form": form}
+        return render(request, self.template_name, context)
+
+    def post(self, request):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("movie_service:movie-list")
         else:
             form = MovieForm()
         return render(request, "movie_service/movie_form.html", {"form": form})
