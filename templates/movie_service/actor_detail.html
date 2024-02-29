@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+	<h1>{{ actor.name }}</h1>
+
+	
+
+	<p><strong>Movies:</strong>
+		{% for movie in actor.movies.all %}
+			<a href="/movies/{{ movie.id }}/">{{ movie.title }}</a> {% if not forloop.last %}, {% endif %}
+		{% endfor %}
+	</p>
+
+	<div style="display: inline-block;">
+	<a href="{% url 'movie_service:actor-update' pk=actor.id %}"
+	   class="btn btn-warning">Update</a>
+
+		<a href="{% url 'movie_service:actor-delete-confirmation' pk=actor.id %}"
+		   class="btn btn-danger">Delete</a>
+	</div>
+
+
+{% endblock %}

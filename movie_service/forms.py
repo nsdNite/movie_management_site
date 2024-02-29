@@ -1,7 +1,14 @@
 from django import forms
-from django.contrib.admin.widgets import FilteredSelectMultiple
 
 from movie_service.models import Movie, Actor, Director
+
+
+class ActorForm(forms.ModelForm):
+    name = forms.CharField(max_length=255)
+
+    class Meta:
+        model = Actor
+        fields = ["name"]
 
 
 class MovieForm(forms.ModelForm):

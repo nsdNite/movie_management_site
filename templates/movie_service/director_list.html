@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load query_transform %}
+
+{% block content %}
+
+	<div class="container">
+		<h1>Director List</h1>
+
+		<div class="row">
+			<div class="col-md-8">
+				<ul>
+					{% for director in directors %}
+						<div>
+							<li><a href="/directors/{{ director.id }}/">{{ director.name }}</a></li>
+						</div>
+
+					{% empty %}
+						<p>No directors found.</p>
+					{% endfor %}
+				</ul>
+
+				<ul class="pagination">
+					{% if directors.has_previous %}
+						<li class="page-item">
+							<a href="?page= {{ directors.previous_page_number }}" class="page-link">prev</a>
+						</li>
+					{% endif %}
+					<li class="page-item active">
+						<span class="page-link">{{ directors.number }} of {{ directors.paginator.num_pages }}</span>
+					</li>
+					{% if actors.has_next %}
+						<li class="page-item">
+							<a href="?page= {{ directors.next_page_number }}" class="page-link">next</a>
+						</li>
+					{% endif %}
+				</ul>
+
+			</div>
+			<div class="col-md-2">
+				<form method="get">
+					{{ filter.form.as_p }}
+					<input type="submit" value="Filter" class="btn btn-primary"/>
+				</form>
+				{% for obj in filter.qs %}
+					{{ directors.name }}
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+	
+
+{% endblock %}
