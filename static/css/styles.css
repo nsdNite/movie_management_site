@@ -5,8 +5,8 @@ body {
     align-items: center;
     min-height: 100vh;
     padding-top: 80px !important;
-    color: cyan;
-    background: #222831;
+    color: rgb(25,25,25);
+    background: mintcream;
 
 }
 
@@ -15,7 +15,7 @@ body {
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 8px;
-    background-color: #222831;
+    background-color: mintcream;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 

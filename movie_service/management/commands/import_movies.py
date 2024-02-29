@@ -1,17 +1,26 @@
+import os
 import requests
 
 from django.core.management.base import BaseCommand
 
+from dotenv import load_dotenv
+
 from movie_service.models import Movie
+
+load_dotenv()
 
 
 class Command(BaseCommand):
 
+    def add_arguments(self, parser):
+        parser.add_argument("arg1", type=int, help="Start movie id")
+        parser.add_argument("arg2", type=int, help="End movie id")
+
     def handle(self, *args, **options):
-        api_key = "75c3d997"
+        api_key = os.environ.get("OMDB_API_KEY")
         url_base = "https://www.omdbapi.com/?apikey=" + api_key
-        start_id = 80000
-        end_id = 80000 + 100
+        start_id = options["arg1"]
+        end_id = options["arg2"]
 
         movies_processed = 0
 
