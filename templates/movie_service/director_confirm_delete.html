@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+	
     <h1>Confirm Delete</h1>
     <p>Are you sure you want to delete director {{ director.name }}?</p>
     <form action="{% url 'movie_service:director-delete' pk=director.id %}" method="post" class="row">
@@ -12,4 +13,5 @@
             <a href="{% url 'movie_service:director-cancel-delete' %}" class="btn btn-primary">Cancel</a>
         </div>
     </form>
+	
 {% endblock %}

@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+	
     <h1>Confirm Delete</h1>
     <p>Are you sure you want to delete movie "{{ movie.title }}"?</p>
     <form action="{% url 'movie_service:movie-delete' pk=movie.id %}" method="post" class="row">

@@ -74,7 +74,34 @@ class MovieCreateView(View):
             form.save()
             return redirect("movie_service:movie-list")
         else:
-            form = MovieForm()
+            form = self.form_class
+        return render(request, "movie_service/movie_form.html", {"form": form})
+
+
+class MovieUpdateView(View):
+    """View to update the movie details"""
+
+    model = Movie
+    form_class = MovieForm
+    template_name = "movie_service/movie_update.html"
+
+    def get(self, request, pk):
+        movie = get_object_or_404(self.model, pk=pk)
+        form = self.form_class(instance=movie)
+        context = {"form": form, "movie": movie}
+
+        return render(request, self.template_name, context)
+
+    def post(self, request, pk):
+        movie = get_object_or_404(self.model, pk=pk)
+        form = self.form_class(request.POST, instance=movie)
+        if form.is_valid():
+            form.save()
+            return redirect(
+                reverse("movie_service:movie-detail", kwargs={"pk": movie.pk})
+            )
+        else:
+            form = self.form_class
         return render(request, "movie_service/movie_form.html", {"form": form})
 
 
@@ -111,33 +138,6 @@ class MovieCancelDeleteView(View):
 
     def get(self, request):
         return redirect("movie_service:movie-list")
-
-
-class MovieUpdateView(View):
-    """View to update the movie details"""
-
-    model = Movie
-    form_class = MovieForm
-    template_name = "movie_service/movie_update.html"
-
-    def get(self, request, pk):
-        movie = get_object_or_404(self.model, pk=pk)
-        form = self.form_class(instance=movie)
-        context = {"form": form, "movie": movie}
-
-        return render(request, self.template_name, context)
-
-    def post(self, request, pk):
-        movie = get_object_or_404(self.model, pk=pk)
-        form = self.form_class(request.POST, instance=movie)
-        if form.is_valid():
-            form.save()
-            return redirect(
-                reverse("movie_service:movie-detail", kwargs={"pk": movie.pk})
-            )
-        else:
-            form = MovieForm()
-        return render(request, "movie_service/movie_form.html", {"form": form})
 
 
 class ActorBaseView(View):
@@ -185,7 +185,7 @@ class ActorCreateView(View):
             form.save()
             return redirect("movie_service:actor-list")
         else:
-            form = ActorForm()
+            form = self.form_class
         return render(request, "movie_service/actor_form.html", {"form": form})
 
 
@@ -212,7 +212,7 @@ class ActorUpdateView(View):
                 reverse("movie_service:actor-detail", kwargs={"pk": actor.pk})
             )
         else:
-            form = ActorForm()
+            form = self.form_class
         return render(request, "movie_service/actor_form.html", {"form": form})
 
 
@@ -237,7 +237,6 @@ class ActorDeleteConfirmationView(View):
     def get(self, request, pk):
         actor = get_object_or_404(self.model, id=pk)
         context = {
-            #          "actor_id": pk,
             "actor": actor,
         }
 

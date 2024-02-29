@@ -44,6 +44,9 @@ class Movie(models.Model):
     def __str__(self) -> str:
         return self.title
 
+    def __repr__(self):
+        return self.title
+
     @property
     def formatted_release_date(self):
         return self.release_date.strftime("%d %b %Y")
