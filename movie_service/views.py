@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.views import View
 
 from movie_service.filters import MovieFilter, ActorFilter, DirectorFilter
-from movie_service.forms import MovieForm, ActorForm
+from movie_service.forms import MovieForm, ActorForm, DirectorForm
 from movie_service.models import Movie, Actor, Director
 
 
@@ -278,3 +278,90 @@ class DirectorBaseView(View):
 
             context = {"directors": directors_paginated, "filter": f}
             return render(request, "movie_service/director_list.html", context)
+
+
+class DirectorCreateView(View):
+    """View for creating new director."""
+
+    model = Director
+    form_class = DirectorForm
+    template_name = "movie_service/director_update.html"
+
+    def get(self, request):
+        form = self.form_class()
+        context = {"form": form}
+        return render(request, self.template_name, context)
+
+    def post(self, request):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("movie_service:director-list")
+        else:
+            form = self.form_class
+        return render(
+            request, "movie_service/director_form.html", {"form": form}
+        )
+
+
+class DirectorUpdateView(View):
+    """View to update the director name"""
+
+    model = Director
+    form_class = DirectorForm
+    template_name = "movie_service/director_update.html"
+
+    def get(self, request, pk):
+        director = get_object_or_404(self.model, pk=pk)
+        form = self.form_class(instance=director)
+        context = {"form": form, "director": director}
+
+        return render(request, self.template_name, context)
+
+    def post(self, request, pk):
+        director = get_object_or_404(self.model, pk=pk)
+        form = self.form_class(request.POST, instance=director)
+        if form.is_valid():
+            form.save()
+            return redirect(
+                reverse(
+                    "movie_service:director-detail", kwargs={"pk": director.pk}
+                )
+            )
+        else:
+            form = self.form_class
+        return render(request, self.template_name, {"form": form})
+
+
+class DirectorDeleteView(View):
+    """View for deleting director."""
+
+    model = Director
+
+    def post(self, request, pk):
+        director = get_object_or_404(self.model, pk=pk)
+        director.delete()
+
+        return redirect("movie_service:director-list")
+
+
+class DirectorDeleteConfirmationView(View):
+    """View to display delete confirmation page for director."""
+
+    model = Director
+    template_name = "movie_service/director_confirm_delete.html"
+
+    def get(self, request, pk):
+        director = get_object_or_404(self.model, id=pk)
+        context = {
+            "director": director,
+        }
+
+        return render(request, self.template_name, context)
+
+
+class DirectorCancelDeleteView(View):
+    """View to handle cancellation of delete operation for director."""
+
+    def get(self, request):
+        return redirect("movie_service:director-list")
