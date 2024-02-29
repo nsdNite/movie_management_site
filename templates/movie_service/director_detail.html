@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-	<h1>{{ director.name }}</h1>
+	<h1>{{ director.name }}, director</h1>
 
 	<p><strong>Movies:</strong>
 		{% for movie in director.movies.all %}

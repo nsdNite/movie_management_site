@@ -11,6 +11,14 @@ class ActorForm(forms.ModelForm):
         fields = ["name"]
 
 
+class DirectorForm(forms.ModelForm):
+    name = forms.CharField(max_length=255)
+
+    class Meta:
+        model = Director
+        fields = ["name"]
+
+
 class MovieForm(forms.ModelForm):
     title = forms.CharField(max_length=255)
     actors = forms.ModelMultipleChoiceField(
