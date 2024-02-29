@@ -11,7 +11,7 @@ class Command(BaseCommand):
         api_key = "75c3d997"
         url_base = "https://www.omdbapi.com/?apikey=" + api_key
         start_id = 80000
-        end_id = 80000 + 100
+        end_id = 80000 + 1000
 
         movies_processed = 0
 
