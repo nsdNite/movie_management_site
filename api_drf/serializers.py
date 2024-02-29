@@ -4,6 +4,24 @@ from movie_service.models import Actor, Director, Movie
 
 
 class MovieSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Movie
+        fields = ["id", "title", "release_date", "actors", "directors"]
+
+
+class MovieListSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Movie
+        fields = [
+            "id",
+            "title",
+            "release_date",
+        ]
+
+
+class MovieDetailSerializer(serializers.ModelSerializer):
     actors = serializers.SlugRelatedField(
         many=True, read_only=True, slug_field="name"
     )
@@ -31,7 +49,7 @@ class ActorListSerializer(serializers.ModelSerializer):
 
 
 class ActorDetailSerializer(serializers.ModelSerializer):
-    movies = MovieSerializer(many=True, read_only=True)
+    movies = MovieListSerializer(many=True, read_only=True)
 
     class Meta:
         model = Actor
@@ -43,3 +61,18 @@ class DirectorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Director
         fields = ["id", "name"]
+
+
+class DirectorListSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Director
+        fields = ["id", "name"]
+
+
+class DirectorDetailSerializer(serializers.ModelSerializer):
+    movies = MovieListSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Director
+        fields = ["id", "name", "movies"]
