@@ -5,9 +5,8 @@ body {
     align-items: center;
     min-height: 100vh;
     padding-top: 80px !important;
-    color: rgb(25,25,25);
+    color: rgb(25, 25, 25);
     background: mintcream;
-
 }
 
 .content {
@@ -18,7 +17,6 @@ body {
     background-color: mintcream;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-
 
 .navbar-fixed {
     position: fixed;
@@ -36,4 +34,5 @@ body {
 
 .navbar-nav .nav-item {
     text-align: center;
+    margin: 0 10px; /* Add some space between nav items */
 }
